@@ -1,17 +1,16 @@
 import {
-  List,
-  ListItem,
-  HStack,
-  Image,
-  Text,
-  Spinner,
   Button,
   Heading,
+  HStack,
+  Image,
+  List,
+  ListItem,
+  Spinner,
+  Text,
 } from '@chakra-ui/react';
 import useGenres, { Genre } from '../hooks/useGenres';
 import getCroppedImageUrl from '../services/image-url';
 
-// to notify the parent that a genre has been selected
 interface Props {
   onSelectGenre: (genre: Genre) => void;
   selectedGenre: Genre | null;
@@ -19,11 +18,14 @@ interface Props {
 
 const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
-  if (error) return;
+
+  if (error) return null;
+
   if (isLoading) return <Spinner />;
+
   return (
     <>
-      <Heading fontSize="2xl" marginBottom={3}>
+      <Heading fontSize="2xl" marginTop={9} marginBottom={3}>
         Genres
       </Heading>
       <List>
@@ -40,10 +42,8 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
                 whiteSpace="normal"
                 textAlign="left"
                 fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
-                onClick={() => {
-                  onSelectGenre(genre);
-                }}
-                fontSize="lg"
+                onClick={() => onSelectGenre(genre)}
+                fontSize="md"
                 variant="link"
               >
                 {genre.name}

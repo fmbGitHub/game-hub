@@ -1,13 +1,13 @@
+import { Box, Flex, Grid, GridItem, HStack, Show } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Grid, GridItem, HStack, Show, Flex, Box } from '@chakra-ui/react';
-import NavBar from './components/NavBar';
 import GameGrid from './components/GameGrid';
+import GameHeading from './components/GameHeading';
 import GenreList from './components/GenreList';
-import { Genre } from './hooks/useGenres';
-import { Platform } from './hooks/useGames';
+import NavBar from './components/NavBar';
 import PlatformSelector from './components/PlatformSelector';
 import SortSelector from './components/SortSelector';
-import GameHeading from './components/GameHeading';
+import { Platform } from './hooks/useGames';
+import { Genre } from './hooks/useGenres';
 
 export interface GameQuery {
   genre: Genre | null;
@@ -23,11 +23,11 @@ function App() {
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`, // wider than 1024px
+        lg: `"nav nav" "aside main"`,
       }}
       templateColumns={{
         base: '1fr',
-        lg: '200px 1fr',
+        lg: '250px 1fr',
       }}
     >
       <GridItem area="nav">
@@ -39,9 +39,7 @@ function App() {
         <GridItem area="aside" paddingX={5}>
           <GenreList
             selectedGenre={gameQuery.genre}
-            onSelectGenre={(genre) => {
-              setGameQuery({ ...gameQuery, genre });
-            }}
+            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
           />
         </GridItem>
       </Show>
@@ -52,9 +50,9 @@ function App() {
             <Box marginRight={5}>
               <PlatformSelector
                 selectedPlatform={gameQuery.platform}
-                onSelectPlatform={(platform) => {
-                  setGameQuery({ ...gameQuery, platform });
-                }}
+                onSelectPlatform={(platform) =>
+                  setGameQuery({ ...gameQuery, platform })
+                }
               />
             </Box>
             <SortSelector
